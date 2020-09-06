@@ -44,8 +44,9 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'user.apps.UserConfig',
     'django.contrib.sites',
+    'user.apps.UserConfig',
+    'todoitems.apps.TodoitemsConfig'
 ]
 
 SITE_ID = 1

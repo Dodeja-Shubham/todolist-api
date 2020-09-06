@@ -23,7 +23,8 @@ class UserView(generics.GenericAPIView,
 
 class User_Each_View(generics.GenericAPIView,
               mixins.ListModelMixin,
-              mixins.RetrieveModelMixin):
+              mixins.RetrieveModelMixin,
+              mixins.UpdateModelMixin):
     
     serializer_class = UserSerializer
     queryset = User.objects.all()
