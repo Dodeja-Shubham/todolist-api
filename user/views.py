@@ -35,3 +35,14 @@ class User_Each_View(generics.GenericAPIView,
     def put(self, request, id=None):
         return self.update(request, id)
 
+class UserLogin(LoginView):
+    def get_response(self):
+        orginal_response = super().get_response()
+        mydata = {"message": "User has logged in", "status": "success"}
+        orginal_response.data.update(mydata)
+        return orginal_response
+
+class UserLogout(LogoutView):
+    def get_response(self):
+        orginal_response = super().get_response()
+        return orginal_response
