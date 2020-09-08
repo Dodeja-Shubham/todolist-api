@@ -29,7 +29,7 @@ SECRET_KEY = 'a4i%nx0(crl@c$kr=)nih%z4z28axdx#x)do-uvl95z7q3dv^1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1','intense-plateau-34888.herokuapp.com']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1','intense-plateau-34888.herokuapp.com', '*']
 
 
 # Application definition
