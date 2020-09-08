@@ -24,13 +24,10 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'a4i%nx0(crl@c$kr=)nih%z4z28axdx#x)do-uvl95z7q3dv^1'
-SECRET_KEY = os.environ.get('SECRET_KEY')
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+SECRET_KEY = 'a4i%nx0(crl@c$kr=)nih%z4z28axdx#x)do-uvl95z7q3dv^1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1','intense-plateau-34888.herokuapp.com', '*']
 
@@ -52,7 +49,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'drf_yasg',
-    'whitenoise.runserver_nostatic',
     'django.contrib.sites',
     'user.apps.UserConfig',
     'todoitems.apps.TodoitemsConfig'
@@ -68,7 +64,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'todoapp.urls'
@@ -95,21 +90,19 @@ WSGI_APPLICATION = 'todoapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'todolist',
-        'USER': 'shubham',
-        'PASSWORD': 'wsx123',
-        'HOST': '127.0.0.1',
-    }
-}
-
 # DATABASES = {
-#     'default': dj_database_url.config()
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'todolist',
+#         'USER': 'shubham',
+#         'PASSWORD': 'wsx123',
+#         'HOST': '127.0.0.1',
+#     }
 # }
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+
+DATABASES = {
+    'default': dj_database_url.config()
+}
 
 
 # Password validation
@@ -149,12 +142,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-#location where django collect all static files
 STATIC_ROOT = os.path.join(BASE_DIR,'static')
-# location where you will store your static files
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'project_name/static')]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
-MEDIA_URL = '/media/'
 django_heroku.settings(locals())
