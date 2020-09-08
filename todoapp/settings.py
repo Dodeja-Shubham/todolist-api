@@ -95,15 +95,15 @@ WSGI_APPLICATION = 'todoapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'todolist',
-#         'USER': 'shubham',
-#         'PASSWORD': 'wsx123',
-#         'HOST': '127.0.0.1',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'todolist',
+        'USER': 'shubham',
+        'PASSWORD': 'wsx123',
+        'HOST': '127.0.0.1',
+    }
+}
 
 # DATABASES = {
 #     'default': dj_database_url.config()
