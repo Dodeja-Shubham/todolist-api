@@ -17,6 +17,7 @@ class ToDoItem(models.Model):
     category = models.CharField(max_length=10, choices=categories, default=1)
     title = models.CharField(max_length=150)
     due_date = models.DateField(null=True, blank=True)
+    colour = models.CharField(max_length=7)
     is_completed = models.BooleanField(default=False)
     created_at = models.DateField(auto_now_add=True)
 

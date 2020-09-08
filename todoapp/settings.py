@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'drf_yasg',
     'django.contrib.sites',
     'user.apps.UserConfig',
     'todoitems.apps.TodoitemsConfig'
