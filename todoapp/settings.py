@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 
+import django_heroku
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
@@ -25,7 +28,7 @@ SECRET_KEY = 'a4i%nx0(crl@c$kr=)nih%z4z28axdx#x)do-uvl95z7q3dv^1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [*]
 
 
 # Application definition
@@ -86,14 +89,18 @@ WSGI_APPLICATION = 'todoapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'todolist',
+#         'USER': 'shubham',
+#         'PASSWORD': 'wsx123',
+#         'HOST': '127.0.0.1',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'todolist',
-        'USER': 'shubham',
-        'PASSWORD': 'wsx123',
-        'HOST': '127.0.0.1',
-    }
+    'default': dj_database_url.config()
 }
 
 
@@ -134,3 +141,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
+django_heroku.settings(locals())
