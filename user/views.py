@@ -60,6 +60,8 @@ def registration_view(request):
             account = serializer.save()
             data['response'] = "succesfully registered new user"
             data['username'] = account.username
+            token = Token.objects.get(user=account).key
+            data['token'] = token
         else:
             data = serializer.errors
         return Response(data)

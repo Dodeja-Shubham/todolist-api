@@ -45,9 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_auth',
     'rest_auth.registration',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+    'corsheaders',
     'drf_yasg',
     'django.contrib.sites',
     'user.apps.UserConfig',
@@ -56,9 +54,17 @@ INSTALLED_APPS = [
 
 SITE_ID = 1
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -144,3 +150,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'static')
 django_heroku.settings(locals())
+
+CORS_ORIGIN_ALLOW_ALL = True
