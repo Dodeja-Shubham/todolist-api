@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from rest_auth.registration.serializers import RegisterSerializer
 from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
@@ -8,19 +7,27 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
-class RegisterSerializer(RegisterSerializer): 
+class RegistrationSerializer(serializers.ModelSerializer):
+    password2 = serializers.CharField(
+        style={'input_type': 'password'}, write_only=True)
+
     class Meta:
         model = User
-        fields = ['username', 'full_name', 'mobile', 'email', 'password1', 'password2']
-
-    def validate_email(self, email):
-        email = get_adapter().clean_email(email)
-        return email
+        fields = ['email', 'username', 'password', 'password2']
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
     
-    def validate_password1(self, password):
-        return get_adapter().clean_password(password)
+    def save(self):
+        account = User(
+            username= self.validated_data['username'],
+        )
+        email = self.validated_data['email']
+        password = self.validated_data['password']
+        password2 = self.validated_data['password2']
 
-    def validate(self, data):
-        if data['password1'] != data['password2']:
-            raise serializers.ValidationError("The two password fields didn't match.")
-        return data
+        if password != password2:
+            raise serializers.ValidationError({'password': 'Passwords must match'})
+        account.set_password(password)
+        account.save()
+        return account

@@ -4,8 +4,11 @@ from django.contrib.auth.models import User
 from rest_framework import generics
 from rest_framework import mixins
 from rest_auth.views import LoginView, LogoutView
+from rest_framework.authtoken.models import Token
 
-from .serializers import UserSerializer
+from .serializers import UserSerializer, RegistrationSerializer
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 # Create your views here.
 
 class UserView(generics.GenericAPIView,
@@ -47,3 +50,18 @@ class UserLogout(LogoutView):
     def get_response(self):
         orginal_response = super().get_response()
         return orginal_response
+
+@api_view(['POST'])
+def registration_view(request):
+    if request.method == "POST":
+        serializer = RegistrationSerialzers(data=request.data)
+        data = {}
+        if serializer.is_valid():
+            account = serializer.save()
+            data['response'] = "succesfully registered new user"
+            data['username'] = account.username
+            token = Token.objects.get(user=account).key
+            data['token'] = token
+        else:
+            data = serializer.errors
+        return Response(data)
