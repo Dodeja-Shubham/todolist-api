@@ -105,9 +105,10 @@ WSGI_APPLICATION = 'todoapp.wsgi.application'
 #         'HOST': '127.0.0.1',
 #     }
 # }
+DATABASE_URL = 'postgresql://<postgresql>'
 
 DATABASES = {
-    'default': dj_database_url.config()
+    'default': dj_database_url.config(default=DATABASE_URL)
 }
 
 
