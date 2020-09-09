@@ -2,11 +2,11 @@ from django.db import models
 
 # Create your models here.
 class ToDoItem(models.Model):
-    home = '1'
-    personal = '2'
-    work = '3'
-    fitness = '4'
-    medication = '5'
+    home = 'Home'
+    personal = 'Personal'
+    work = 'Work'
+    fitness = 'Fitness'
+    medication = 'Medication'
     categories = [
         (home, 'Home'),
         (personal, 'Personal'),
