@@ -3,6 +3,8 @@ from django.shortcuts import render
 from rest_framework import generics
 from rest_framework import mixins
 from rest_auth.views import LoginView, LogoutView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 
 from .serializers import ToDoItemSerializer
 from .models import ToDoItem
@@ -18,12 +20,17 @@ class ToDoItemView(generics.GenericAPIView,
     serializer_class = ToDoItemSerializer
     queryset = ToDoItem.objects.all()
     lookup_field = 'id'
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-            return self.list(request)
+        return self.list(request)
     
     def post(self, request):
         return self.create(request)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class ToDoItem_Each_View(generics.GenericAPIView,
               mixins.ListModelMixin,
