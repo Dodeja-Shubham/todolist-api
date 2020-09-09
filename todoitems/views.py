@@ -37,5 +37,5 @@ class ToDoItem_Each_View(generics.GenericAPIView,
     def get(self, request, id=None):
         return self.retrieve(request, id)
     
-    def put(self, request, id=None):
+    def patch(self, request, id=None):
         return self.update(request, id)
