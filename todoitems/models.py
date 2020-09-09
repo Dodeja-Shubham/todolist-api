@@ -15,10 +15,10 @@ class ToDoItem(models.Model):
     #     (medication, 'Medication'),
     # ]
     category = models.CharField(max_length=100, default=1)
-    title = models.CharField(max_length=150)
+    title = models.CharField(max_length=150, null=True)
     due_date = models.DateField(null=True, blank=True)
     desc = models.TextField(null= True)
-    colour = models.CharField(max_length=7)
+    colour = models.CharField(max_length=7, null= True)
     is_completed = models.BooleanField(default=False)
     created_at = models.DateField(auto_now_add=True)
 
