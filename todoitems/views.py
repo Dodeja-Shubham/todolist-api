@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from rest_framework import mixins
 from rest_auth.views import LoginView, LogoutView
@@ -18,13 +18,17 @@ class ToDoItemView(generics.GenericAPIView,
     View for User using Generic API View
     '''
     serializer_class = ToDoItemSerializer
-    queryset = ToDoItem.objects.all()
+    model = ToDoItem
+    #queryset = ToDoItem.objects.all()
     lookup_field = 'id'
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
-    def get(self, request):
-        return self.list(request)
+    def get_queryset(self):
+        return self.model.objects.filter(user=self.request.user)
+
+    def get(self, request, id=None):
+        return self.list(request,id)
     
     def post(self, request):
         return self.create(request)
